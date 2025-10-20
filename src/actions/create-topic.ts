@@ -18,13 +18,13 @@ interface CreateTopicFormState {
         name?: string[];
         description?: string[];
         _form?: string[];
-    }
+    };
 }
 
 export async function createTopic(formState: CreateTopicFormState, formData: FormData): Promise<CreateTopicFormState> {
     const result = createTopicSchema.safeParse({
         name: formData.get('name'),
-        description: formData.get('description')
+        description: formData.get('description'),
     });
 
     if (!result.success) {
@@ -49,22 +49,22 @@ export async function createTopic(formState: CreateTopicFormState, formData: For
             data: {
                 slug: result.data.name,
                 description: result.data.description
-            }
+            },
         });
 
     } catch (err:unknown) {
         if (err instanceof Error) {
             return {
                 errors: {
-                    _form:[err.message]
-                }
-            }
+                    _form: [err.message],
+                },
+            };
         } else {
             return {
                 errors: {
                     _form: ['Something went wrong'],
-                }
-            }
+                },
+            };
         }
     }
 
